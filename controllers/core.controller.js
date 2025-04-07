@@ -12,6 +12,10 @@ const CreateCore = async (req, res) => {
     if (err) {
       return res.status(400).json({ message: err.message, status: false });
     }
+    const coreExist = await CoreModel.find({ value: req.body.value, isDeleted: false });
+    if (coreExist.length > 0) {
+      return res.status(409).json({ message: "Core already exists", status: false });
+    }
 
     try {
       const baseUrl = `${req.protocol}://${req.get("host")}`;

@@ -6,7 +6,7 @@ const VeneerSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
-    species: {
+    specie: {
         type: String,
         required: true,
         trim: true,
@@ -25,10 +25,6 @@ const VeneerSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-    },
-    grainDirection: {
-        type: String,
-        required: true,
     },
     value:{
         type:String,
