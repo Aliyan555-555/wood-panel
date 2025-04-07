@@ -50,24 +50,52 @@ const CreateVeneer = async (req, res) => {
 };
 
 const UpdateVeneer = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const updatedVeneer = await VeneerModel.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
-    if (!updatedVeneer) {
-      return res
-        .status(404)
-        .json({ message: "Veneer not found", status: false });
+  upload(req, res, async (err) => {
+    if (err) {
+      return res.status(400).json({ message: err.message, status: false });
     }
-    res.status(200).json({
-      status: true,
-      veneer: updatedVeneer,
-      message: "Veneer successfully updated",
-    });
-  } catch (error) {
-    res.status(400).json({ message: error.message, status: false });
-  }
+    try {
+      const { id } = req.params;
+      const veneer = await VeneerModel.findById(id);
+      if (!veneer) {
+        return res
+          .status(404)
+          .json({ message: "Veneer not found", status: false });
+      }
+
+      let updatedData = { ...req.body };
+
+      if (req.file) {
+        const baseUrl = `${req.protocol}://${req.get("host")}`;
+        const uniqueFileName = `${Date.now()}${Math.floor(
+          Math.random() * 1000000000
+        )}${path.extname(req.file.originalname)}`;
+        const uploadPath = path.join(__dirname, "../upload", uniqueFileName);
+        fs.writeFileSync(uploadPath, req.file.buffer);
+
+        // Update the source field with the new file path
+        updatedData.source = `${baseUrl}/uploads/${uniqueFileName}`;
+      }
+
+      const updatedVeneer = await VeneerModel.findByIdAndUpdate(id, updatedData, {
+        new: true,
+      });
+
+      if (!updatedVeneer) {
+        return res
+          .status(404)
+          .json({ message: "Veneer not found", status: false });
+      }
+
+      res.status(200).json({
+        status: true,
+        veneer: updatedVeneer,
+        message: "Veneer successfully updated",
+      });
+    } catch (error) {
+      res.status(400).json({ message: error.message, status: false });
+    }
+  });
 };
 
 const DeleteVeneer = async (req, res) => {
