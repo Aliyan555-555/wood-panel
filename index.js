@@ -10,7 +10,10 @@ const fs = require("fs");
 dotenv.config();
 
 const app = express();
-app.use(cors({}));
+app.use(cors({
+  origin: "*", // change this to your frontend domain in production
+  credentials: true,
+}));
 app.use(express.json());
 
 // Ensure the upload folder exists
