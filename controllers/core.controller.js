@@ -2,8 +2,6 @@ const CoreModel = require("../model/core.model.js");
 const fs = require("fs");
 const path = require("path");
 const multer = require("multer");
-
-// Configure multer for handling file uploads
 const storage = multer.memoryStorage();
 const upload = multer({ storage }).single("file");
 
@@ -12,35 +10,47 @@ const CreateCore = async (req, res) => {
     if (err) {
       return res.status(400).json({ message: err.message, status: false });
     }
-    const coreExist = await CoreModel.find({ value: req.body.value, isDeleted: false });
+    const coreExist = await CoreModel.find({
+      value: req.body.value,
+      isDeleted: false,
+    });
     if (coreExist.length > 0) {
-      return res.status(409).json({ message: "Core already exists", status: false });
+      return res
+        .status(409)
+        .json({ message: "Core already exists", status: false });
     }
-
     try {
       const baseUrl = `${req.protocol}://${req.get("host")}`;
       if (!req.file) {
-        return res.status(400).json({ message: "No file uploaded", status: false });
+        return res
+          .status(400)
+          .json({ message: "No file uploaded", status: false });
       }
-      const uniqueFileName = `${Date.now()}${Math.floor(Math.random() * 1000000000)}${path.extname(req.file.originalname)}`;
+      const uniqueFileName = `${Date.now()}${Math.floor(
+        Math.random() * 1000000000
+      )}${path.extname(req.file.originalname)}`;
       const uploadPath = path.join(__dirname, "../upload", uniqueFileName);
       fs.writeFileSync(uploadPath, req.file.buffer);
-      const coreData = await CoreModel.create({ ...req.body, source: `${baseUrl}/uploads/${uniqueFileName}` });
+      const coreData = await CoreModel.create({
+        ...req.body,
+        source: `${baseUrl}/uploads/${uniqueFileName}`,
+      });
       if (!coreData) {
-        return res.status(404).json({ message: "Core not found", status: false });
+        return res
+          .status(404)
+          .json({ message: "Core not found", status: false });
       }
-
       res.status(201).json({
         status: true,
         core: coreData,
         message: "core successfully created",
       });
     } catch (error) {
-      res.status(400).json({ message: error.message, status: false }); // Handle validation errors
+      res.status(400).json({ message: error.message, status: false });
     }
   });
 };
- 
+
 const UpdateCore = async (req, res) => {
   const { id } = req.params; // Get the ID from the request parameters
   try {
@@ -70,14 +80,18 @@ const UpdateCoreWithFile = async (req, res) => {
     try {
       const core = await CoreModel.findById(id);
       if (!core) {
-        return res.status(404).json({ message: "Core not found", status: false });
+        return res
+          .status(404)
+          .json({ message: "Core not found", status: false });
       }
 
-      let updatedData = { ...req.body};
+      let updatedData = { ...req.body };
 
       if (req.file) {
         const baseUrl = `${req.protocol}://${req.get("host")}`;
-        const uniqueFileName = `${Date.now()}${Math.floor(Math.random() * 1000000000)}${path.extname(req.file.originalname)}`;
+        const uniqueFileName = `${Date.now()}${Math.floor(
+          Math.random() * 1000000000
+        )}${path.extname(req.file.originalname)}`;
         const uploadPath = path.join(__dirname, "../upload", uniqueFileName);
         fs.writeFileSync(uploadPath, req.file.buffer);
         updatedData.source = `${baseUrl}/uploads/${uniqueFileName}`;
@@ -121,7 +135,7 @@ const GetAllCore = async (req, res) => {
   try {
     const allCore = await CoreModel.find({ isDeleted: false });
     if (!allCore) {
-      return res.status(404).json({ message: "core not found",status: false });
+      return res.status(404).json({ message: "core not found", status: false });
     }
     res.status(200).json({
       status: true,
@@ -137,7 +151,9 @@ const GetCoreByName = async (req, res) => {
   try {
     const { name } = req.params;
     if (!name) {
-      return res.status(400).json({ message: "Name is required", status: false });
+      return res
+        .status(400)
+        .json({ message: "Name is required", status: false });
     }
 
     const core = await CoreModel.findOne({ name });
