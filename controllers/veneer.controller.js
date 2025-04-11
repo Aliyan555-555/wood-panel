@@ -49,6 +49,7 @@ const CreateVeneer = async (req, res) => {
   });
 };
 
+
 const UpdateVeneer = async (req, res) => {
   upload(req, res, async (err) => {
     if (err) {
@@ -62,9 +63,7 @@ const UpdateVeneer = async (req, res) => {
           .status(404)
           .json({ message: "Veneer not found", status: false });
       }
-
       let updatedData = { ...req.body };
-
       if (req.file) {
         const baseUrl = `${req.protocol}://${req.get("host")}`;
         const uniqueFileName = `${Date.now()}${Math.floor(
@@ -72,21 +71,17 @@ const UpdateVeneer = async (req, res) => {
         )}${path.extname(req.file.originalname)}`;
         const uploadPath = path.join(__dirname, "../upload", uniqueFileName);
         fs.writeFileSync(uploadPath, req.file.buffer);
-
         // Update the source field with the new file path
         updatedData.source = `${baseUrl}/uploads/${uniqueFileName}`;
       }
-
       const updatedVeneer = await VeneerModel.findByIdAndUpdate(id, updatedData, {
         new: true,
       });
-
       if (!updatedVeneer) {
         return res
           .status(404)
           .json({ message: "Veneer not found", status: false });
       }
-
       res.status(200).json({
         status: true,
         veneer: updatedVeneer,
@@ -97,6 +92,7 @@ const UpdateVeneer = async (req, res) => {
     }
   });
 };
+
 
 const DeleteVeneer = async (req, res) => {
   const { id } = req.params;
@@ -119,6 +115,8 @@ const DeleteVeneer = async (req, res) => {
     res.status(500).json({ message: error.message, status: false });
   }
 };
+
+
 const GetAllVeneer = async (req, res) => {
   try {
     const veneer = await VeneerModel.find({ isDeleted: false });
@@ -131,6 +129,7 @@ const GetAllVeneer = async (req, res) => {
     res.status(500).json({ message: error.message, status: false });
   }
 };
+
 
 const GetVeneerById = async (req, res) => {
   const { id } = req.params; // Get the ID from the request parameters

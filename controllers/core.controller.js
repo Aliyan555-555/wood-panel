@@ -70,12 +70,13 @@ const UpdateCore = async (req, res) => {
     res.status(400).json({ message: error.message, status: false }); // Handle validation errors
   }
 };
+
+
 const UpdateCoreWithFile = async (req, res) => {
   upload(req, res, async (err) => {
     if (err) {
       return res.status(400).json({ message: err.message, status: false });
     }
-
     const { id } = req.params; // Get the ID from the request parameters
     try {
       const core = await CoreModel.findById(id);
@@ -84,9 +85,7 @@ const UpdateCoreWithFile = async (req, res) => {
           .status(404)
           .json({ message: "Core not found", status: false });
       }
-
       let updatedData = { ...req.body };
-
       if (req.file) {
         const baseUrl = `${req.protocol}://${req.get("host")}`;
         const uniqueFileName = `${Date.now()}${Math.floor(
@@ -96,11 +95,9 @@ const UpdateCoreWithFile = async (req, res) => {
         fs.writeFileSync(uploadPath, req.file.buffer);
         updatedData.source = `${baseUrl}/uploads/${uniqueFileName}`;
       }
-
       const updatedCore = await CoreModel.findByIdAndUpdate(id, updatedData, {
         new: true,
       });
-
       res.json({
         status: true,
         core: updatedCore,
@@ -111,6 +108,7 @@ const UpdateCoreWithFile = async (req, res) => {
     }
   });
 };
+
 
 const DeleteCore = async (req, res) => {
   const { id } = req.params; // Get the ID from the request parameters
@@ -131,6 +129,8 @@ const DeleteCore = async (req, res) => {
     res.status(500).json({ message: error.message, status: false });
   }
 };
+
+
 const GetAllCore = async (req, res) => {
   try {
     const allCore = await CoreModel.find({ isDeleted: false });
@@ -146,6 +146,7 @@ const GetAllCore = async (req, res) => {
     res.status(500).json({ message: error.message, status: false });
   }
 };
+
 
 const GetCoreByName = async (req, res) => {
   try {
@@ -170,6 +171,8 @@ const GetCoreByName = async (req, res) => {
     res.status(500).json({ message: error.message, status: false });
   }
 };
+
+
 const GetCoreById = async (req, res) => {
   try {
     const { id } = req.params;
