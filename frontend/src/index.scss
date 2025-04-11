@@ -1,0 +1,248 @@
+
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#react-root {
+  min-height: 100%;
+  height: 100%;
+  width: 100%;
+  font-family: futura-pt, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+#react-container {
+  width: 100%;
+  margin: 0px auto;
+  display: flex;
+  gap: 1rem;
+  padding-top: 50px;
+  max-width: 1090px;
+  @media screen and (min-width: 1500px) {
+    max-width: 1440px;
+  }
+}
+
+#react-3d {
+  position: relative;
+  width: 67%;
+  border: 1px solid #eeece1;
+  background: #fafafa;
+  min-height: 400px;
+  height: 530px;
+  border-radius: 2px;
+}
+
+#react-config {
+  position: relative;
+  width: 33%;
+}
+
+.note {
+  font-size: 0.75rem;
+  line-height: calc(0.75rem * 1.5);
+  margin-inline: auto;
+}
+
+.react-button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 32px 0px;
+  margin-top: 48px;
+  border-top: 1px solid #b9bab3;
+  &_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    background-color: #ed1c25;
+    padding: 12px 24px;
+    &:hover {
+      background-color: #f1555b;
+    }
+    span {
+      color: #ffffff;
+      font-size: 1rem;
+      line-height: calc(1rem * 1.5);
+      font-family: futura-pt, sans-serif;
+      margin-right: 1rem;
+    }
+    svg {
+      height: 18px;
+      width: 14px;
+      path {
+        fill: #ffffff;
+      }
+    }
+    &[data-grey="true"] {
+      background-color: #b9bab3;
+      &:hover {
+        background-color: #d7d7d3;
+      }
+      span {
+        color: #3f403c;
+        margin-left: 1rem;
+      }
+      svg {
+        path {
+          fill: #3f403c;
+        }
+      }
+    }
+  }
+}
+
+.react-option {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h2 {
+    font-family: futura-pt, sans-serif;
+    font-size: 2rem;
+    line-height: calc(2rem * 1.2);
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  h3 {
+    font-family: futura-pt, sans-serif;
+    font-size: 1.25rem;
+    line-height: calc(1.25rem * 1.4);
+    margin-bottom: 24px;
+    font-weight: bold;
+  }
+  &[data-nogap] {
+    gap: 0px;
+    h2 {
+      margin-bottom: 24px;
+    }
+  }
+}
+
+.react-input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  label {
+    font-family: futura-pt, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  select {
+    font-family: futura-pt, sans-serif;
+    padding: 12px;
+    border: 1px solid #6d6e67;
+    border-radius: 2px;
+    appearance: none;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.react-radio {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+  input {
+    display: none;
+    &:checked ~ label {
+      background-color: #ed1c25;
+      color: #ffffff;
+      &:hover {
+        background-color: #f1555b;
+      }
+    }
+  }
+  label {
+    font-family: futura-pt, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 12px 24px;
+    text-align: center;
+    transition: background-color 0.2s ease-in-out;
+    background-color: #b9bab3;
+    color: #3f403c;
+    cursor: pointer;
+    &:hover {
+      background-color: #d7d7d3;
+    }
+  }
+}
+
+.react-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0px;
+  border-bottom: 1px solid #eeece1;
+  h4 {
+    text-transform: uppercase;
+    font-size: 1rem;
+    line-height: calc(1rem * 1.5);
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    p {
+      text-align: right;
+      text-transform: uppercase;
+      font-size: 1rem;
+      line-height: calc(1rem * 1.5);
+      color: #6d6e67;
+    }
+  }
+}
+
+.react-pdf {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0px;
+  border-bottom: 1px solid #eeece1;
+  h4 {
+    text-transform: uppercase;
+    font-size: 1rem;
+    line-height: calc(1rem * 1.5);
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    p {
+      text-align: right;
+      text-transform: uppercase;
+      font-size: 1rem;
+      line-height: calc(1rem * 1.5);
+      color: #6d6e67;
+    }
+  }
+}
+.PDF-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  background-color: #ed1c25;
+  color: #fff;
+  padding: 12px 24px;
+  &:hover {
+    background-color: #f1555b;
+  }
+}
