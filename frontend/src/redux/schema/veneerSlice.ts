@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface Veneer {
+export interface Veneer {
   _id: string;
   source: string;
   specie: string;
