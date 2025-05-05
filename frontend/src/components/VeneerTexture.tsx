@@ -31,8 +31,9 @@ const VeneerTexture = ({ isBack }: { isBack: boolean }) => {
     }
   }, [faceCut, faceGrade, faceSpecies, faceMatch, faceGrain, ref]);
 
-  console.log(source)
-
+  console.log("🚀 ~ VeneerTexture ~ source:", source)
+  console.log("back texture Data", `${faceSpecies.value.split(" ").join("-").toLowerCase()}_${backCut.value.split(" ").join("-").toLowerCase()}_${backMatch.value.split(" ").join("-").toLowerCase()}_${backGrade.value.toLowerCase()}`);
+  console.log("front texture Data", `${faceSpecies.value.split(" ").join("-").toLowerCase()}_${faceCut.value.split(" ").join("-").toLowerCase()}_${faceMatch.value.split(" ").join("-").toLowerCase()}_${faceGrade.value.split(" ").join("-").toLowerCase()}`);
   if (source) {
 
     return (
@@ -53,5 +54,6 @@ const VeneerTexture = ({ isBack }: { isBack: boolean }) => {
 
 
 };
+
 
 export default VeneerTexture;

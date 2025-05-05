@@ -326,9 +326,9 @@ const ConditionalOptions = ({
               name="back-cut"
             >
               <option value="rotary">Rotary</option>
-              <option value="plain">Plain sliced</option>
-              <option value="quarter">Quarter cut</option>
-              <option value="rift">Rift cut</option>
+              <option value="plain-sliced">Plain sliced</option>
+              <option value="quarter-cut">Quarter cut</option>
+              <option value="rift-cut">Rift cut</option>
             </select>
           </div>
           <div className="react-input">
