@@ -231,6 +231,8 @@ const ConditionalOptions = ({
               <option value="fir">Fir</option>
               <option value="walnut">Walnut</option>
               <option value="white-oak">White Oak</option>
+              <option value="hemlock">Hemlock</option>
+
             </select>
           </div>
           <div className="react-input">

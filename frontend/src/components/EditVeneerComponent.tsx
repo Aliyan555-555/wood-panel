@@ -131,6 +131,8 @@ const EditVeneerComponent = ({ id, back }: { id: string | null; back: () => void
             <option value="White Oak">White Oak</option>
             <option value="Pine">Pine</option>
             <option value="Fir">Fir</option>
+            <option value="Hemlock">Hemlock</option>
+
           </select>
         </div>
         <div className="flex-1">
